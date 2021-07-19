@@ -1,0 +1,36 @@
+# 
+#   Bases de Dados - FCTUC/LEI 2020/21
+#   Projeto: "Leiloes Online"
+#
+#   Autores:
+#       Beatriz Madeira, 2018280169, uc2018280169@student.uc.pt
+#       Claudia Campos, 2018285941, cfcampos@student.dei.uc.pt
+#       Dario Felix, 2018275530, dario@student.dei.uc.pt
+#
+#   Codigo adaptado de: 
+#       Nuno Antunes <nmsa@dei.uc.pt>
+#       BD 2021 Team - https://dei.uc.pt/lei/
+#       University of Coimbra
+#
+
+version: '3'
+
+services:
+  dbproj:
+    build: ./postgresql
+    container_name: db-leiloes-container
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+  web:
+    build: ./python
+    container_name: api-leiloes-container
+    volumes:
+      - "./python/app:/app"
+    expose:
+      - "5000"
+    ports:
+      - "8080:5000"
+    depends_on:
+      - dbproj

@@ -1,0 +1,6 @@
+
+// entrar
+cd BD-Projeto-2021/Codigo-API-e-DB/
+
+// executar
+sh docker-compose-python-psql.sh

@@ -1,0 +1,579 @@
+{
+	"info": {
+		"_postman_id": "48c289b3-503e-4fe4-8a96-eb696a418a26",
+		"name": "Testes Requests DB Leilões",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registo do utilizador",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"user5\", \r\n    \"email\": \"user5@dei.uc.pt\", \r\n    \"password\": \"passuser5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dbproj/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"user"
+					]
+				},
+				"description": "Criar um novo utilizador, inserindo os dados requeridos pelo modelo de dados."
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticação do utilizador",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\": \"passadmin1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dbproj/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"user"
+					]
+				},
+				"description": "Login com username e password, recebendo um token de autenticação em caso de sucesso, token esse que deve ser incluído nas chamadas subsequentes.\r\n\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar um novo leilão",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"artigoId\": \"0000000000001\", \r\n    \"precoMinimo\": 10.0, \r\n    \"titulo\": \"Leilao a serio\",\r\n    \"descricao\": \"muito serio\",\r\n    \"dataInicio\": \"31/05/2021 12:00:00\",\r\n    \"dataFim\": \"01/06/2021 13:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leilao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leilao"
+					]
+				},
+				"description": "Cria-se um leilão começando por identificar o artigo que se pretende comprar. Para simplificar, considera-se que cada artigo tem um código EAN/ISBN que o identifica univocamente. Cada leilão deve igualmente ter um título, uma descrição e quaisquer detalhes adicionais que considere necessários. Para criar o leilão, o vendedor indica o preço mínimo que está disposto a receber, bem como a data, hora e minuto em que o leilão termina."
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todos os leilões existentes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leiloes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leiloes"
+					]
+				},
+				"description": "Deve poder-se listar os leilões que estão a decorrer, obtendo uma lista de identificadores e descrições."
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar leilões existentes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leiloes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leiloes",
+						"1"
+					]
+				},
+				"description": "Deve poder-se listar os leilões que estão a decorrer, pesquisando pelo código EAN/ISBN ou pela descrição do artigo. Esta listagem apresenta o identificador e descrição de cada leilão que obedeça ao critério da pesquisa."
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar detalhes de um leilão",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leilao/224baf22-86bf-4c7c-a734-8d591a23fe8b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leilao",
+						"224baf22-86bf-4c7c-a734-8d591a23fe8b"
+					]
+				},
+				"description": "Para qualquer leilão escolhido, deve poder-se obter todos os detalhes\r\nrelativos à descrição do artigo, ao término do leilão, às mensagens escritas no seu mural (ver abaixo) e ao\r\nhistórico de licitações efetuadas nesse mesmo leilão."
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todos os leilões em que o utilizador tenha atividade",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leiloes/atividade",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leiloes",
+						"atividade"
+					]
+				},
+				"description": "Um utilizador deve poder listar os leilões nos quais tem ou teve alguma atividade, seja como criador do leilão seja como licitador. Esta listagem sumaria os detalhes de cada leilão."
+			},
+			"response": []
+		},
+		{
+			"name": "Efetuar uma licitação num leilão",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "c09980c9-a4ce-4610-9418-8943ddeaf11b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/licitar/224baf22-86bf-4c7c-a734-8d591a23fe8b/28.50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"licitar",
+						"224baf22-86bf-4c7c-a734-8d591a23fe8b",
+						"28.50"
+					]
+				},
+				"description": "Um comprador pode licitar com um preço mais alto num determinado leilão, desde que o leilão não tenha terminado e que não haja uma sua licitação mais alta do que a que está a fazer e seja, pelo menos, superior ao preço mínimo."
+			},
+			"response": []
+		},
+		{
+			"name": "Editar propriedades de um leilão",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Titulo do Novo Leilão\",\r\n    \"descricao\": \"Descrição do Novo Leilão\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leilao/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leilao",
+						"1"
+					]
+				},
+				"description": "O vendedor pode ajustar todas as descrições textuais relativas a um leilão seu, sendo que todas as versões anteriores devem ficar guardadas e poder ser consultadas\r\nposteriormente para referência."
+			},
+			"response": []
+		},
+		{
+			"name": "Escrever mensagem no mural de um leilão",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "c09980c9-a4ce-4610-9418-8943ddeaf11b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mensagem\": \"msg2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dbproj/mensagem/224baf22-86bf-4c7c-a734-8d591a23fe8b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"mensagem",
+						"224baf22-86bf-4c7c-a734-8d591a23fe8b"
+					]
+				},
+				"description": "Cada leilão deve ter um “mural” onde poderão ser escritos comentários, questões e esclarecimentos relativos ao leilão."
+			},
+			"response": []
+		},
+		{
+			"name": "Entrega imediata de notificações a utilizadores NOVAS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/notificacoes/novas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"notificacoes",
+						"novas"
+					]
+				},
+				"description": "Os utilizadores recebem imediatamente na sua caixa de\r\nentrada as notificações acerca das mensagens publicadas, e deverão estar disponíveis no endpoint correspondente. O criador de um leilão é notificado de todas as mensagens relativas a esse leilão. Todos os utilizadores que tiverem escrito num mural passam a ser notificados acerca de mensagens escritas nesse mesmo mural."
+			},
+			"response": []
+		},
+		{
+			"name": "Entrega imediata de notificações a utilizadores TODAS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "c09980c9-a4ce-4610-9418-8943ddeaf11b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/notificacoes/todas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"notificacoes",
+						"todas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notificação de licitação ultrapassada NOVAS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "2e85f134-679b-4d61-893a-830f7c66544d",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/notificacoes/novas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"notificacoes",
+						"novas"
+					]
+				},
+				"description": "Um comprador que tenha feito uma licitação num leilão recebe uma mensagem na sua caixa de mensagens sempre que houver outra licitação melhor que a sua."
+			},
+			"response": []
+		},
+		{
+			"name": "Término do leilão na data, hora e minuto marcados",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "6fd01350-1ce4-4da9-a60b-1a1125dc0ce6",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leilao/96ed592b-09e6-48c7-96d0-ab65a35c4d69/terminar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leilao",
+						"96ed592b-09e6-48c7-96d0-ab65a35c4d69",
+						"terminar"
+					]
+				},
+				"description": "No momento indicado pelo vendedor (data, hora e minuto) o leilão termina. Determina-se aí o vencedor e fecha-se a possibilidade de realizar mais licitações. Os detalhes desse leilão são atualizados e podem ser consultados posteriormente."
+			},
+			"response": []
+		},
+		{
+			"name": "Um administrador pode cancelar um leilão",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/leilao/1/abortar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"leilao",
+						"1",
+						"abortar"
+					]
+				},
+				"description": "Um administrador deve poder cancelar um leilão se tal for necessário. O leilão continua a poder ser consultado pelos utilizadores, mas está dado como encerrado e não podem ser feitas licitações. Todos os utilizadores interessados recebem uma notificação."
+			},
+			"response": []
+		},
+		{
+			"name": "Um administrador pode banir permanentemente um utilizador",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/user/1/banir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"user",
+						"1",
+						"banir"
+					]
+				},
+				"description": "Um administrador deve poder banir um utilizador se tal for necessário. Todos os leilões criados por esse\r\nutilizador são cancelados. Todas as licitações efetuadas por esse utilizador devem ser invalidadas (ainda que mantidas nos registos). Note que, ao invalidar uma licitação num leilão, quaisquer licitações superiores a essa devem ser igualmente invalidadas exceto a melhor delas, cujo valor se torna igual ao valor da que for invalidada. Automaticamente é criada uma mensagem no mural dos leilões afetados lamentando o incómodo e todos os utilizadores envolvidos devem receber uma notificação."
+			},
+			"response": []
+		},
+		{
+			"name": "Um administrador pode obter estatísticas de atividade na aplicação",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "3cf2ade5-d005-4e71-8ebc-de9a2e14f87e",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dbproj/estatisticas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dbproj",
+						"estatisticas"
+					]
+				},
+				"description": "Um administrador deve poder consultar estatísticas da utilização da aplicação: top 10 utilizadores com mais\r\nleilões criados, top 10 utilizadores que mais leilões venceram, número total de leilões nos últimos 10 dias."
+			},
+			"response": []
+		}
+	]
+}

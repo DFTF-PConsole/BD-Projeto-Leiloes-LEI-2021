@@ -1,0 +1,33 @@
+// *** INSTALAR PGADMIN (por terminal) ***
+docker pull dpage/pgadmin4
+docker run -d -p 80:80 --name pgadmin -e PGADMIN_DEFAULT_EMAIL=admin@dei.uc.pt -e PGADMIN_DEFAULT_PASSWORD=admin dpage/pgadmin4
+
+
+// Correr "pgadmin" no Docker
+
+
+// Entrar pgAdmin via Web
+Link: http://127.0.0.1
+Username: admin@dei.uc.pt
+Password: admin
+
+
+// Descobrir Address DB (no terminal)  (*)
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres
+// OU usar
+host.docker.internal
+
+
+// Configurar pgAdmin
+General->Name: DB Leiloes
+Connection->Host Name/Address: 172.17.0.3   (*)
+Connection->Username: admin
+Connection->Password: admin
+Connection->Save Password: yes
+Save
+
+
+
+// *** ENTRAR TERMINAL DOCKER ***
+psql -h localhost -p 5432 -d dbproj -U admin
+
